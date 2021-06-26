@@ -1,0 +1,2 @@
+# GameManager
+Manager for games.
