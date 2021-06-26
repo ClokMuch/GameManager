@@ -8,4 +8,5 @@ Manager for games.
 -[ ] Multi-process with a process bar (optional);
 -[ ] Create shortcut for game;
 -[ ] Select an icon if launch a batch file (suffix: .cmd, .bat);
--[ ] Multi volumes support.
+-[ ] Multi volumes support;
+-[ ] Deal with Errors like DirNotExist, IOError...

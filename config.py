@@ -47,4 +47,5 @@ class XPrintColor:
     # config for print colors
     queue = ("\033[0;30;40m", "\033[0m")  # normal, fore-black, back-yellow.
     processing = ("\033[5;30;40m", "\033[0m")  # flash, fore-black, back-yellow.
+    bold = ("\033[1;30;40m", "\033[0m")  # just bold.
     default = ("", "")  # nothing.
