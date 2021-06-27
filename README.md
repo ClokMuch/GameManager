@@ -9,4 +9,5 @@ Manager for games.
 -[ ] Create shortcut for game;
 -[ ] Select an icon if launch a batch file (suffix: .cmd, .bat);
 -[ ] Multi volumes support;
+-[ ] Guess a dir before ask the dir; 
 -[ ] Deal with Errors like DirNotExist, IOError...

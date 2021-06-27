@@ -6,7 +6,7 @@ import config
 
 from os.path import isfile as winsys_isfile
 from tkinter.filedialog import askdirectory
-from tkinter import Tk,messagebox
+from tkinter import Tk, messagebox
 
 
 def xprint(content=None):
@@ -26,7 +26,7 @@ def xprint(content=None):
         2. Hollow Knight                / default color
         3. Control                      / default color
         4. Need for Speed Heat          / processing color
-    Practical no. depends on the lens of list or tuple.
+    Practical no. depends on the len of list or tuple.
 
     if input None or not input, xprint will NOT output;
     if input others, xprint will work like print.
@@ -64,14 +64,33 @@ def try_find_volume():
         return volume_list
 
 
-def get_a_dir(is_volume=False):
+def get_a_dir(tip_info=None, is_volume=False):
     """
     Get a location via tkinter.filedialog.askdirectory
     if is_volume = True: will return the target's volume
     return a dir end with '\\'
     """
+    if not tip_info:
+        tip_info = ""
     Tk().withdraw()
     if is_volume:
-        target = askdirectory()
-        #if len
+        messagebox.showinfo(title="Tip", message=(tip_info + "Select a volume in next form...\n\n\
+                                                             Or select a folder to take its volume."))
+        askdirectory_title = "Select a volume..."
+    else:
+        messagebox.showinfo(title="Tip", message=(tip_info + "Select a folder in next form...."))
+        askdirectory_title = "Select a folder..."
+
+    target = askdirectory(title=askdirectory_title)
+
+    if is_volume:
+        target = target.replace("/", "\\")[:3]
+        return target
+    else:
+        if target[-1] != '/':
+            target = target.replace("/", "\\") + "\\"
+        else:
+            target = target.replace("/", "\\")
+        return target
+
 
