@@ -1,0 +1,15 @@
+{"games": [
+
+  {"index": 0,
+   "full_name": "Plants VS Zombies",
+   "icon": "PVZ\\PVZ.exe",
+   "target": "PVZ\\PVZ.exe",
+   "state": "enable"},
+
+  {"index": 1,
+   "full_name": "Need For Speed",
+   "icon": "NFS\\NFS.bat",
+   "target": "NFS\\NFS17.exe",
+   "state": "disabled"}
+
+]}

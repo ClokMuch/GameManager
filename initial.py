@@ -12,6 +12,11 @@ def initialize_games_list(is_pool_list=False):
     is_pool_list = False: Create a games list in games dir;
     is_pool_list = True: Create a games pool list in external storage.
     """
+    methods.Tk().withdraw()
     if not is_pool_list:
-        # select the games' dir
-        initial_games_dir = methods.get_a_dir(tip_info="Firstly, select your games' dir which storages your all games.")
+        with open(config.Default.games_main_dir + config.Default.games_list_sub, encoding='utf8', mode='a'):
+            methods.messagebox.showinfo(title="Info", message="Select your game or launcher in next form...")
+            target = methods.get_a_game(tip="Select your game or launcher...")
+
+
+

@@ -5,7 +5,8 @@
 import config
 
 from os.path import isfile as winsys_isfile
-from tkinter.filedialog import askdirectory
+from os.path import isdir as winsys_isdir
+from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter import Tk, messagebox
 
 
@@ -74,11 +75,11 @@ def get_a_dir(tip_info=None, is_volume=False):
         tip_info = ""
     Tk().withdraw()
     if is_volume:
-        messagebox.showinfo(title="Tip", message=(tip_info + "Select a volume in next form...\n\n\
+        messagebox.showinfo(title="Tip", message=(tip_info + "\nSelect a volume in next form...\n\n\
                                                              Or select a folder to take its volume."))
         askdirectory_title = "Select a volume..."
     else:
-        messagebox.showinfo(title="Tip", message=(tip_info + "Select a folder in next form...."))
+        messagebox.showinfo(title="Tip", message=(tip_info + "\nSelect a folder in next form...."))
         askdirectory_title = "Select a folder..."
 
     target = askdirectory(title=askdirectory_title)
@@ -94,3 +95,20 @@ def get_a_dir(tip_info=None, is_volume=False):
         return target
 
 
+def get_a_game(tip=None):
+    """
+    Get a game with tip.
+    Return tuple: (game_full_path, file_type)
+    file_type: "game" - ".exe", "launcher" - ".cmd", ".bat"
+    """
+    if not tip:
+        tip = "Select a game..."
+    Tk().withdraw()
+    target = askopenfilename(title=tip, filetypes=[('Executable game file', config.Default.games_file_type),
+                                                   ('Game launcher file', config.Default.launcher_file_type)],
+                             initialdir=config.Default.games_main_dir)
+    if target[-4:] in config.Default.games_file_type:
+        result = (target, 'game')
+    else:
+        result = (target, 'launcher')
+    return result

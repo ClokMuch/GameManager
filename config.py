@@ -7,7 +7,7 @@
 class Default:
     games_main_dir = "D:\\Game\\"
     games_shortcuts_subdir = "!Index\\"
-    games_list_sub = "games_lists"
+    games_list_sub = "games_lists.json"
     interrupt_inct_sub = "games_lists_interrupt"
     games_file_type = [".exe"]
     launcher_file_type = [".bat", ".cmd"]
