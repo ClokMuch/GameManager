@@ -11,12 +11,14 @@ class Default:
     interrupt_inct_sub = "games_lists_interrupt"
     games_file_type = [".exe"]
     launcher_file_type = [".bat", ".cmd"]
+    no_symbols = ('/', '\\', '?', '*', '"', '|', ':', '<', '>')
 
 
 class GamesPoolOfExternalStorage:
     # config for external storage of games
     auto_select_the_external_storage_pool = True
     pool_subdir = "Game\\"
+    games_shortcuts_subdir = Default.games_shortcuts_subdir
     pool_games_list = "pool_game_list"
 
 

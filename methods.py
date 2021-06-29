@@ -7,7 +7,11 @@ import config
 from os.path import isfile as winsys_isfile
 from os.path import isdir as winsys_isdir
 from tkinter.filedialog import askdirectory, askopenfilename
+from tkinter.simpledialog import askstring
 from tkinter import Tk, messagebox
+import win32com.client
+import pythoncom
+
 
 
 def xprint(content=None):
@@ -95,20 +99,49 @@ def get_a_dir(tip_info=None, is_volume=False):
         return target
 
 
-def get_a_game(tip=None):
+def get_a_file(tip=None, special_filetype=None, initial_selector_dir=config.Default.games_main_dir):
     """
     Get a game with tip.
-    Return tuple: (game_full_path, file_type)
-    file_type: "game" - ".exe", "launcher" - ".cmd", ".bat"
+    special_filetype: [(description, ['.exe', '.doc']), +++++]
+    Return tuple: (game_full_path, file_type, file_dir)
+    file_type: "game" - ".exe", "launcher" - ".cmd", ".bat", "other" - other.
+    file_dir: with \\
     """
     if not tip:
-        tip = "Select a game..."
+        tip = "Select a file..."
+    if not special_filetype:
+        special_filetype = [('Executable game file', config.Default.games_file_type),
+                            ('Game launcher file', config.Default.launcher_file_type)]
     Tk().withdraw()
-    target = askopenfilename(title=tip, filetypes=[('Executable game file', config.Default.games_file_type),
-                                                   ('Game launcher file', config.Default.launcher_file_type)],
-                             initialdir=config.Default.games_main_dir)
+    target = askopenfilename(title=tip, filetypes=special_filetype,
+                             initialdir=initial_selector_dir)
+    file_dir = "\\".join(target.replace("/", "\\").split('\\')[:-1]) + "\\"
     if target[-4:] in config.Default.games_file_type:
-        result = (target, 'game')
+        result = (target, 'game', file_dir)
+    elif target[-4:] in config.Default.launcher_file_type:
+        result = (target, 'launcher', file_dir)
     else:
-        result = (target, 'launcher')
+        result = (target, 'other', file_dir)
     return result
+
+
+def create_a_shortcut(source, name, target_dir, icon=None):
+    """
+    Create a shortcut.
+    :param source: Original game or launcher.
+    :param name: Shortcut name with NO '.lnk'.
+    :param target_dir: Folder where shortcut will appear.
+    :param icon: Shortcut icon, need if target is a launcher.
+    """
+    if source[-4:] in config.Default.launcher_file_type:
+        if not icon:
+            return 'ERROR, launcher need an icon!'
+        else:
+            icon = icon + ', 0'
+    else:
+        icon = source + ', 0'
+    shortcut = win32com.client.Dispatch("WScript.Shell").CreateShortCut(target_dir + name + '.lnk')
+    shortcut.TargetPath = source
+    shortcut.IconLocation = icon
+    shortcut.save()
+

@@ -3,6 +3,7 @@
 # By Clok Much
 
 import config
+import initial
 import methods
 
 
@@ -28,3 +29,5 @@ while True:
             methods.messagebox.showerror(title="Invalid config!",
                                          message=tmp_message)
             exit()
+        else:
+            initial.arrange_a_game()
