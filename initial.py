@@ -15,6 +15,7 @@ def get_a_game(pool_dir=None):
     if not pool_dir:
         methods.messagebox.showinfo(title="Info", message="Select your game or launcher in next form...")
         target = methods.get_a_file(tip="Select your game or launcher...")
+        icon = target
         # Create a full name and chk full name...
         full_name = ""
         while not full_name:
@@ -44,15 +45,22 @@ def get_a_game(pool_dir=None):
                                         message="You select a launcher, " +
                                                 "you need to select an icon or true game associate to the launcher" +
                                                 "in next form.")
-            icon = methods.askopenfilename(title="Select an icon or true game file associate to " + target[0],
-                                           filetypes=[('True game or icon', [".exe", ".ico"])],
-                                           initialdir=target[2])
+            icon = None
+            while not icon:
+                icon = methods.askopenfilename(title="Select an icon or true game file associate to " + target[0],
+                                               filetypes=[('True game or icon', [".exe", ".ico"])],
+                                               initialdir=target[2])
+                if not icon:
+                    methods.messagebox.showerror(title="Error: Selected nothing!",
+                                                 message="You must select an icon or true game file!")
+
         result = (full_name, target[0], icon, target[2], "enabled")
-    elif pool_dir:
+    else:  # is pool dir
         pool_dir = methods.try_find_volume() + config.GamesPoolOfExternalStorage.pool_subdir
         methods.messagebox.showinfo(title="Info", message="Select your game or launcher in next form...")
         target = methods.get_a_file(tip="Select your game or launcher...",
                                     initial_selector_dir=pool_dir)
+        icon = target
         # ↑ POINT-dual pool support coming soon...
         # Create a full name and chk full name...
         full_name = ""
@@ -83,9 +91,15 @@ def get_a_game(pool_dir=None):
                                         message="You select a launcher, " +
                                                 "you need to select an icon or true game associate to the launcher" +
                                                 "in next form.")
-            icon = methods.askopenfilename(title="Select an icon or true game file associate to " + target[0],
-                                           filetypes=[('True game or icon', [".exe", ".ico"])],
-                                           initialdir=target[2])
-        result = (full_name, target[0], icon, target[2], "disabled")
+            icon = None
+            while not icon:
+                icon = methods.askopenfilename(
+                    title="Select an icon or true game file associate to " + target[0],
+                    filetypes=[('True game or icon', [".exe", ".ico"])],
+                    initialdir=target[2])
+                if not icon:
+                    methods.messagebox.showerror(title="Error: Selected nothing!",
+                                                 message="You must select an icon or true game file!")
+        result = (full_name, target[0], icon, target[2], "pool_0")
 
     return result

@@ -1,15 +1,39 @@
-{"games": [
+{
+  "pools": [
+    {
+      "pool_index": 0,
+      "pool_contents": [1]
+    }
+  ],
 
-  {"index": 0,
-   "full_name": "Plants VS Zombies",
-   "icon": "PVZ\\PVZ.exe",
-   "target": "PVZ\\PVZ.exe",
-   "state": "enable"},
-
-  {"index": 1,
-   "full_name": "Need For Speed",
-   "icon": "NFS\\NFS.bat",
-   "target": "NFS\\NFS17.exe",
-   "state": "disabled"}
-
-]}
+  "games": [
+    {
+      "index": 0,
+      "full_name": "Plants VS Zombies",
+      "target": "PVZ\\PVZ.exe",
+      "icon": "PVZ\\PVZ.exe, 0",
+      "state": "enabled"
+    },
+    {
+      "index": 1,
+      "full_name": "Need For Speed",
+      "target": "NFS\\NFS.bat",
+      "icon": "NFS\\NFS17.exe, 0",
+      "state": "pool_0"
+    },
+    {
+      "index": 2,
+      "full_name": "Celeste",
+      "target": "Celeste\\celeste.exe",
+      "icon": "Celeste\\celeste.exe, 0",
+      "state": "enabled"
+    },
+    {
+      "index": 3,
+      "full_name": "Dungreed",
+      "target": "Dungreed\\dungreed.exe",
+      "icon": "Dungreed\\dungreed.exe, 0",
+      "state": "enabled"
+    }
+  ]
+}

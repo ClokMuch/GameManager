@@ -30,4 +30,4 @@ while True:
                                          message=tmp_message)
             exit()
         else:
-            initial.arrange_a_game()
+            pass

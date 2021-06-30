@@ -10,8 +10,7 @@ from tkinter.filedialog import askdirectory, askopenfilename
 from tkinter.simpledialog import askstring
 from tkinter import Tk, messagebox
 import win32com.client
-import pythoncom
-
+from json import load as load_json
 
 
 def xprint(content=None):
@@ -145,3 +144,32 @@ def create_a_shortcut(source, name, target_dir, icon=None):
     shortcut.IconLocation = icon
     shortcut.save()
 
+
+def load_games_list(games_list):
+    """
+    Games list full path.
+    Return: games_list load result as a dictionary:
+    (
+    {index/int/0:{'full_name', 'target', 'icon', 'state'}, index/int/1+++},   # Games
+    {'pool_index/int/0':{'pool_0':[1]}}  # Games in pool index
+    )
+    """
+    all_games = {}
+    pools = {}
+    with open(games_list, 'rb') as games_list:
+        load_result = load_json(games_list)
+        for game in load_result["games"]:
+            all_games[game["index"]] = {game["full_name"], game["target"], game["icon"], game["state"]}
+        for pool in load_result["pools"]:
+            pools[pool["pool_index"]] = pool["pool_contents"]
+    result = (all_games, pools)
+    return result
+
+
+def save_games_list(games_list, location):
+    """
+    Save a games list.
+    games_list/tuple: (game_full_name, game_full_path, game_icon, game_dir, game_state)
+    location/dir: full path.
+    """
+    pass
